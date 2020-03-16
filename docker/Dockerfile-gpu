@@ -47,6 +47,10 @@ RUN python3 setup.py build_ext --inplace
 ADD ./download_models.sh /YOLO3-4-Py/download_models.sh
 RUN sh download_models.sh
 
-## Run test ##
-ADD ./docker_demo.py /YOLO3-4-Py/docker_demo.py
-CMD ["python3", "docker_demo.py"]
+## jupyter notebook install ##
+RUN pip3 install jupyter
+RUN mkdir src/
+WORKDIR src/
+CMD ["jupyter", "notebook", "--port=8888", "--no-browser", "--ip=0.0.0.0", "--allow-root"]
+
+EXPOSE 8888
